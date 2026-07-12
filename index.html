@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Concierge IA | Quinta do Paraíso</title>
+    <title>Quinta do Paraíso | Assistente</title>
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Regista o Service Worker para permitir Instalação -->
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js');
       }
     </script>
 </head>
-<body>
+<body class="idle">
 
     <header class="app-header">
-        <span>Quinta do Paraíso</span>
+        <span id="ui-title">Quinta do Paraíso</span>
+        <select id="lang-select" class="lang-switcher">
+            <option value="pt">🇵🇹 PT</option>
+            <option value="en">🇬🇧 EN</option>
+            <option value="es">🇪🇸 ES</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="de">🇩🇪 DE</option>
+        </select>
     </header>
 
     <main class="app-main">
@@ -26,8 +32,7 @@
             <div class="ai-orb" id="orb"></div>
         </div>
 
-        <!-- Tudo isto arranca escondido -->
-        <div id="ui-elements" class="hidden">
+        <div id="ui-elements" class="ui-wrapper">
             <div class="chat-display">
                 <p id="ai-response">Olá. Bem-vindo à Quinta do Paraíso. Sou o seu assistente pessoal. Em que posso ajudar?</p>
             </div>
@@ -41,14 +46,14 @@
             <div class="topics-wrapper">
                 <button id="btn-topics" class="btn-topics-main">Tópicos Rápidos ⚡</button>
                 <div id="topics-list" class="hidden">
-                    <button class="chip" onclick="askDirect('Wi-Fi')">🔑 Wi-Fi</button>
-                    <button class="chip" onclick="askDirect('Pequeno-almoço')">☕ Pequeno-almoço</button>
-                    <button class="chip" onclick="askDirect('Receção')">🛎️ Receção</button>
-                    <button class="chip" onclick="askDirect('Restaurante')">🍽️ Restaurante</button>
-                    <button class="chip" onclick="askDirect('Atividades')">🍇 Atividades</button>
-                    <button class="chip" onclick="askDirect('Piscina')">🏊 Piscina</button>
-                    <button class="chip" onclick="askDirect('Check-out')">📅 Check-out</button>
-                    <button class="chip" onclick="askDirect('Farmácia')">💊 Farmácia</button>
+                    <button class="chip" id="chip-wifi" onclick="askDirect('wifi')">🔑 Wi-Fi</button>
+                    <button class="chip" id="chip-breakfast" onclick="askDirect('breakfast')">☕ Pequeno-almoço</button>
+                    <button class="chip" id="chip-reception" onclick="askDirect('reception')">🛎️ Receção</button>
+                    <button class="chip" id="chip-restaurant" onclick="askDirect('restaurant')">🍽️ Restaurante</button>
+                    <button class="chip" id="chip-activities" onclick="askDirect('activities')">🍇 Atividades</button>
+                    <button class="chip" id="chip-pool" onclick="askDirect('pool')">🏊 Piscina</button>
+                    <button class="chip" id="chip-checkout" onclick="askDirect('checkout')">📅 Check-out</button>
+                    <button class="chip" id="chip-pharmacy" onclick="askDirect('pharmacy')">💊 Farmácia</button>
                 </div>
             </div>
         </div>
