@@ -3,25 +3,26 @@
     --text-color: #ffffff;
     --accent-color: #D4AF37;
     --glass-bg: rgba(255, 255, 255, 0.05);
-    /* Curva de transição super suave */
     --smooth: 1s cubic-bezier(0.25, 1, 0.5, 1); 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; }
 
-body, html { width: 100%; height: 100vh; background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; overflow: hidden; }
+body, html { width: 100%; height: 100vh; background-color: var(--bg-color); color: var(--text-color); overflow: hidden; display: flex; flex-direction: column; }
 
-/* CABEÇALHO */
-.app-header { display: flex; align-items: center; justify-content: space-between; padding: 25px 25px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); transition: opacity var(--smooth), transform var(--smooth); }
-.app-header span { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase; }
+/* CABEÇALHO (Desaparece quando idle) */
+.app-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 25px; z-index: 100; transition: opacity var(--smooth), transform var(--smooth); }
+.app-header span { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase; }
 
 .lang-switcher { background: var(--glass-bg); color: #fff; border: 1px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 5px 10px; outline: none; font-size: 0.9rem; cursor: pointer; }
 .lang-switcher option { background: #111; color: #fff; }
 
-.app-main { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; position: relative; }
+/* CONTEÚDO PRINCIPAL (Flexbox perfeito) */
+.app-main { flex: 1; width: 100%; display: flex; flex-direction: column; padding: 20px; transition: padding-top var(--smooth); }
+body:not(.idle) .app-main { padding-top: 80px; /* Dá espaço ao header quando acordado */ }
 
 /* ORBE DA IA E CONTENTOR */
-.ai-container { position: absolute; top: 30px; left: 0; width: 100%; display: flex; justify-content: center; align-items: center; transition: all var(--smooth); z-index: 10; height: 130px;}
+.ai-container { flex: 1; display: flex; justify-content: center; align-items: center; transition: all var(--smooth); min-height: 150px; }
 .ai-orb { width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--accent-color) 30%, #000 100%); box-shadow: 0 0 40px var(--accent-color), inset 0 0 20px rgba(255,255,255,0.8); animation: aiBreathe 4s ease-in-out infinite alternate; cursor: pointer; transition: all var(--smooth); }
 .ai-orb:active { transform: scale(0.95); }
 .ai-orb.listening { box-shadow: 0 0 80px var(--accent-color), inset 0 0 30px #fff; animation: aiPulse 0.5s infinite alternate; transform: scale(1.15); }
@@ -30,12 +31,11 @@ body, html { width: 100%; height: 100vh; background-color: var(--bg-color); colo
 @keyframes aiPulse { 0% { box-shadow: 0 0 50px var(--accent-color); } 100% { box-shadow: 0 0 100px #fff; } }
 
 /* INTERFACE (TEXTO E BOTÕES) */
-.ui-wrapper { display: flex; flex-direction: column; gap: 15px; opacity: 1; transform: translateY(0); transition: all var(--smooth); padding-top: 150px; /* Dá espaço à orbe em cima */ z-index: 5;}
+.ui-wrapper { flex-shrink: 0; width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; opacity: 1; transform: translateY(0); transition: all var(--smooth); max-height: 500px; }
 
 /* ==================== ESTADO ADORMECIDO (IDLE) ==================== */
 body.idle .app-header { opacity: 0; transform: translateY(-20px); pointer-events: none; }
-body.idle .ui-wrapper { opacity: 0; transform: translateY(50px); pointer-events: none; }
-body.idle .ai-container { top: 50%; transform: translateY(-50%); height: auto; }
+body.idle .ui-wrapper { opacity: 0; transform: translateY(50px); pointer-events: none; max-height: 0; margin: 0; gap: 0; overflow: hidden; }
 body.idle .ai-orb { width: 220px; height: 220px; box-shadow: 0 0 60px var(--accent-color), inset 0 0 30px rgba(255,255,255,0.8); }
 
 /* ÁREA DE TEXTO */
