@@ -1,0 +1,51 @@
+:root {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+    --accent-color: #D4AF37;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; }
+
+body, html { width: 100%; height: 100vh; background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; overflow: hidden; }
+
+.app-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+.mini-logo { height: 35px; object-fit: contain; }
+.app-header span { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--accent-color); letter-spacing: 1px; }
+
+.app-main { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; }
+
+/* ORBE DA IA */
+.ai-container { flex: 1; display: flex; justify-content: center; align-items: center; }
+.ai-orb { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--accent-color) 30%, #000 100%); box-shadow: 0 0 40px var(--accent-color), inset 0 0 20px rgba(255,255,255,0.8); position: relative; animation: aiBreathe 4s ease-in-out infinite alternate; transition: transform 0.3s ease; }
+.ai-orb.listening { transform: scale(1.2); box-shadow: 0 0 80px var(--accent-color), inset 0 0 30px #fff; animation: aiPulse 0.5s infinite alternate; }
+
+@keyframes aiBreathe { 
+    0% { transform: scale(0.95); box-shadow: 0 0 30px var(--accent-color); } 
+    100% { transform: scale(1.05); box-shadow: 0 0 60px var(--accent-color); } 
+}
+@keyframes aiPulse {
+    0% { box-shadow: 0 0 50px var(--accent-color); }
+    100% { box-shadow: 0 0 100px #fff; }
+}
+
+/* ÁREA DE TEXTO */
+.chat-display { min-height: 100px; text-align: center; display: flex; justify-content: center; align-items: center; padding: 0 10px; margin-bottom: 20px; }
+.chat-display p { font-size: 1.2rem; line-height: 1.6; color: #ddd; text-shadow: 0 2px 4px rgba(0,0,0,0.8); transition: opacity 0.3s ease; }
+.chat-display p.typing { opacity: 0.5; color: var(--accent-color); font-style: italic; }
+
+/* INPUTS E BOTÕES */
+.input-area { display: flex; gap: 10px; margin-bottom: 20px; }
+.input-area input { flex: 1; background: var(--glass-bg); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 25px; padding: 15px 20px; color: #fff; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+.input-area input:focus { border-color: var(--accent-color); background: rgba(212, 175, 55, 0.1); }
+
+.btn-action { width: 50px; height: 50px; border-radius: 50%; background: var(--glass-bg); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-color); font-size: 1.2rem; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; }
+.btn-action:active { background: var(--accent-color); color: #000; transform: scale(0.95); }
+#btn-mic.recording { background: #ff4444; color: #fff; border-color: #ff4444; animation: pulseRed 1s infinite alternate; }
+
+@keyframes pulseRed { from { box-shadow: 0 0 10px #ff4444; } to { box-shadow: 0 0 30px #ff4444; } }
+
+/* CHIPS RÁPIDOS */
+.quick-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; padding-bottom: 10px; }
+.chip { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 15px; color: #ccc; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+.chip:active { background: var(--accent-color); color: #000; border-color: var(--accent-color); }
