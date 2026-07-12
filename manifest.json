@@ -1,6 +1,6 @@
 {
-  "name": "Quinta do Paraíso - Concierge",
-  "short_name": "QP Concierge",
+  "name": "Quinta do Paraíso",
+  "short_name": "Quinta do Paraíso",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#050505",
