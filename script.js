@@ -1,14 +1,15 @@
 // DICIONÁRIO MULTILINGUE E CÉREBRO
 const langData = {
     pt: {
-        welcome: "Olá. Bem-vindo à Quinta do Paraíso. Sou o seu assistente pessoal. Em que posso ajudar?",
+        morning: "Bom dia.", afternoon: "Boa tarde.", evening: "Boa noite.",
+        welcome: "Bem-vindo à Quinta do Paraíso. Sou o seu assistente pessoal. Em que posso ajudar?",
         placeholder: "Escreva ou fale connosco...",
         listening: "A ouvir...",
         processing: "A consultar dados...",
         notUnderstood: "Não percebi. Tente novamente.",
         topicsBtn: "Tópicos Rápidos ⚡",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Pequeno-almoço", reception: "🛎️ Receção", restaurant: "🍽️ Restaurante", activities: "🍇 Atividades", pool: "🏊 Piscina", checkout: "📅 Check-out", pharmacy: "💊 Farmácia" },
-        defaultResp: "Para essa questão específica, sugiro contactar a receção. Teremos todo o gosto em ajudar.",
+        defaultResp: "Para essa questão específica, sugiro contactar a receção através do ícone nos tópicos rápidos. Teremos todo o gosto em ajudar.",
         voiceLang: "pt-PT",
         brain: [
             { k: ['wi-fi', 'wifi', 'internet', 'rede', 'password'], r: "A password do Wi-Fi é: Paraiso2026. A rede é 'Quinta do Paraíso Hóspedes'." },
@@ -22,14 +23,15 @@ const langData = {
         ]
     },
     en: {
-        welcome: "Hello. Welcome to Quinta do Paraíso. I am your personal assistant. How can I help you?",
+        morning: "Good morning.", afternoon: "Good afternoon.", evening: "Good evening.",
+        welcome: "Welcome to Quinta do Paraíso. I am your personal assistant. How can I help you?",
         placeholder: "Type or speak to us...",
         listening: "Listening...",
         processing: "Consulting data...",
         notUnderstood: "I didn't catch that. Please try again.",
         topicsBtn: "Quick Topics ⚡",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Breakfast", reception: "🛎️ Reception", restaurant: "🍽️ Restaurant", activities: "🍇 Activities", pool: "🏊 Pool", checkout: "📅 Check-out", pharmacy: "💊 Pharmacy" },
-        defaultResp: "For that specific question, I suggest contacting reception. We'll be happy to assist.",
+        defaultResp: "For that specific question, I suggest contacting reception via the quick topics. We'll be happy to assist.",
         voiceLang: "en-GB",
         brain: [
             { k: ['wi-fi', 'wifi', 'internet', 'network', 'password'], r: "The Wi-Fi password is: Paraiso2026. Network name is 'Quinta do Paraíso Hóspedes'." },
@@ -43,14 +45,15 @@ const langData = {
         ]
     },
     es: {
-        welcome: "Hola. Bienvenido a Quinta do Paraíso. Soy tu asistente personal. ¿En qué puedo ayudarte?",
+        morning: "Buenos días.", afternoon: "Buenas tardes.", evening: "Buenas noches.",
+        welcome: "Bienvenido a Quinta do Paraíso. Soy tu asistente personal. ¿En qué puedo ayudarte?",
         placeholder: "Escribe o habla con nosotros...",
         listening: "Escuchando...",
         processing: "Consultando datos...",
         notUnderstood: "No entendí. Inténtalo de nuevo.",
         topicsBtn: "Temas Rápidos ⚡",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Desayuno", reception: "🛎️ Recepción", restaurant: "🍽️ Restaurante", activities: "🍇 Actividades", pool: "🏊 Piscina", checkout: "📅 Salida", pharmacy: "💊 Farmacia" },
-        defaultResp: "Para esa pregunta, sugiero contactar con recepción. Estaremos encantados de ayudar.",
+        defaultResp: "Para esa pregunta, sugiero contactar con recepción a través de los temas rápidos. Estaremos encantados de ayudar.",
         voiceLang: "es-ES",
         brain: [
             { k: ['wi-fi', 'wifi', 'internet', 'red', 'contraseña'], r: "La contraseña del Wi-Fi es: Paraiso2026. Red: 'Quinta do Paraíso Hóspedes'." },
@@ -64,7 +67,8 @@ const langData = {
         ]
     },
     fr: {
-        welcome: "Bonjour. Bienvenue à Quinta do Paraíso. Je suis votre assistant. Comment puis-je aider?",
+        morning: "Bonjour.", afternoon: "Bon après-midi.", evening: "Bonsoir.",
+        welcome: "Bienvenue à Quinta do Paraíso. Je suis votre assistant. Comment puis-je aider?",
         placeholder: "Écrivez ou parlez...",
         listening: "À l'écoute...",
         processing: "Consultation des données...",
@@ -80,12 +84,13 @@ const langData = {
             { k: ['pharmacie', 'médicament', 'hôpital', 'médecin'], r: "La pharmacie est à Foz Côa (15 min). Trousse de secours à la réception." },
             { k: ['restaurant', 'dîner', 'déjeuner', 'manger'], r: "Restaurant ouvert de 12h30 à 15h00 et 19h30 à 22h30. Réservation conseillée." },
             { k: ['activités', 'vin', 'dégustation', 'bateau'], r: "Dégustations à 15h, tours en bateau et jeep. Contactez la réception." },
-            { k: ['piscine', 'serviette', 'spa', 'massage'], r: "Piscine ouverte jusqu'à 20h. Serviettes en chambre. Spa sur réservation." },
+            { k: ['piscina', 'serviette', 'spa', 'massage'], r: "Piscine ouverte jusqu'à 20h. Serviettes en chambre. Spa sur réservation." },
             { k: ['check-out', 'départ', 'partir', 'heure'], r: "Le check-out est à 12h00. Contactez-nous pour un départ tardif." }
         ]
     },
     de: {
-        welcome: "Hallo. Willkommen in Quinta do Paraíso. Wie kann ich helfen?",
+        morning: "Guten Morgen.", afternoon: "Guten Tag.", evening: "Guten Abend.",
+        welcome: "Willkommen in Quinta do Paraíso. Wie kann ich helfen?",
         placeholder: "Tippen oder sprechen...",
         listening: "Zuhören...",
         processing: "Daten werden abgerufen...",
@@ -107,9 +112,9 @@ const langData = {
     }
 };
 
-let currentLang = 'pt';
+let currentLang = localStorage.getItem('qpLang') || 'pt';
 let inactivityTimer;
-let isSpeaking = false; // FLAG CRUCIAL PARA BLOQUEAR O RECOLHIMENTO
+let isSpeaking = false; 
 
 // Elementos da UI
 const body = document.body;
@@ -122,15 +127,18 @@ const btnTopics = document.getElementById('btn-topics');
 const topicsList = document.getElementById('topics-list');
 const langSelect = document.getElementById('lang-select');
 
-// Muda o idioma
+// Inicializa a UI na língua guardada
+langSelect.value = currentLang;
+updateLanguageUI();
+
 langSelect.addEventListener('change', (e) => {
     currentLang = e.target.value;
+    localStorage.setItem('qpLang', currentLang); // Guarda a preferência
     updateLanguageUI();
 });
 
 function updateLanguageUI() {
     const d = langData[currentLang];
-    responseText.innerText = d.welcome;
     inputField.placeholder = d.placeholder;
     btnTopics.innerText = d.topicsBtn;
     
@@ -145,11 +153,10 @@ function updateLanguageUI() {
 }
 
 // ----------------------------------------------------
-// SISTEMA DE 5 SEGUNDOS (UI ESCONDIDA)
+// SISTEMA DE ESTADO (IDLE / ACTIVE)
 // ----------------------------------------------------
 function startTimer() {
     clearTimeout(inactivityTimer);
-    // SE ESTIVER A FALAR, NÃO RECOLHE O ECRÃ
     if (isSpeaking) return; 
     
     inactivityTimer = setTimeout(() => {
@@ -162,25 +169,45 @@ function stopTimer() {
     clearTimeout(inactivityTimer);
 }
 
-// Interações reiniciam o timer
 document.body.addEventListener('click', startTimer);
 document.body.addEventListener('touchstart', startTimer);
 inputField.addEventListener('focus', stopTimer);
 inputField.addEventListener('blur', startTimer);
 inputField.addEventListener('input', startTimer);
 
-// Clique na Orbe acorda a app
+// ACORDAR A ORBE
 orb.addEventListener('click', (e) => {
     e.stopPropagation(); 
+    
+    const wasIdle = body.classList.contains('idle');
     body.classList.remove('idle');
-    responseText.innerText = langData[currentLang].welcome;
-    startTimer();
+    
+    if (wasIdle) {
+        // Feedback Háptico (Vibração leve)
+        if (navigator.vibrate) navigator.vibrate(50);
+        
+        // Saudação por hora
+        const d = langData[currentLang];
+        const h = new Date().getHours();
+        let saudacaoTempo = d.morning;
+        if (h >= 12 && h < 20) saudacaoTempo = d.afternoon;
+        else if (h >= 20) saudacaoTempo = d.evening;
+        
+        const msg = saudacaoTempo + " " + d.welcome;
+        exibirEFalar(msg);
+    } else {
+        startTimer();
+    }
 });
 
 btnTopics.addEventListener('click', () => {
     topicsList.classList.toggle('hidden');
     startTimer();
 });
+
+// Começa com a app escondida
+startTimer();
+
 
 // ----------------------------------------------------
 // LÓGICA DO CÉREBRO
@@ -190,7 +217,6 @@ function processarPergunta(keywordOrPhrase) {
     const pNormalizada = keywordOrPhrase.toLowerCase();
     let respostaEncontrada = d.defaultResp;
 
-    // A pesquisa principal faz match com o id direto ou palavras na frase
     for (let i = 0; i < d.brain.length; i++) {
         const match = d.brain[i].k.some(kw => pNormalizada.includes(kw));
         if (match) {
@@ -214,12 +240,11 @@ function exibirEFalar(texto) {
         utter.lang = langData[currentLang].voiceLang;
         
         let voices = window.speechSynthesis.getVoices();
-        // Tenta encontrar uma voz feminina para a língua escolhida
-        let v = voices.find(vo => vo.lang.includes(utter.lang.split('-')[0]) && (vo.name.includes('Female') || vo.name.includes('Raquel')));
+        let v = voices.find(vo => vo.lang.includes(utter.lang.split('-')[0]) && (vo.name.includes('Female') || vo.name.includes('Raquel') || vo.name.includes('Joana')));
         if(!v) v = voices.find(vo => vo.lang.includes(utter.lang.split('-')[0]));
         if(v) utter.voice = v;
         
-        // Bloqueia o timer enquanto fala
+        // Mantém a app acordada enquanto fala
         utter.onstart = () => { isSpeaking = true; stopTimer(); };
         utter.onend = () => { isSpeaking = false; startTimer(); };
         utter.onerror = () => { isSpeaking = false; startTimer(); };
@@ -234,7 +259,7 @@ btnSend.addEventListener('click', () => {
     if (inputField.value.trim() !== '') {
         responseText.classList.add('typing');
         responseText.innerText = langData[currentLang].processing;
-        stopTimer(); // Pára de esconder enquanto pensa
+        stopTimer(); 
         setTimeout(() => processarPergunta(inputField.value), 600);
     }
 });
@@ -247,8 +272,8 @@ window.askDirect = function(type) {
     responseText.classList.add('typing');
     responseText.innerText = langData[currentLang].processing;
     stopTimer();
+    topicsList.classList.add('hidden'); // Fecha gaveta de tópicos
     
-    // Traduz o ID do chip (ex: 'breakfast') para a pesquisa correta da língua atual
     setTimeout(() => {
         let searchTerm = '';
         const dict = langData[currentLang];
@@ -302,6 +327,7 @@ if (SpeechRecognition) {
 
     btnMic.addEventListener('click', () => {
         window.speechSynthesis.cancel();
+        if(navigator.vibrate) navigator.vibrate(50);
         recognition.lang = langData[currentLang].voiceLang;
         recognition.start();
     });
