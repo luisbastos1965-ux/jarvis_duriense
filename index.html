@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Concierge IA | Quinta do Paraíso</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <img src="Logo.png" alt="QP" class="mini-logo" onerror="this.src='https://via.placeholder.com/40x40/000/D4AF37?text=QP'">
+        <span>Concierge Virtual</span>
+    </header>
+
+    <main class="app-main">
+        <div class="ai-container">
+            <div class="ai-orb" id="orb"></div>
+        </div>
+
+        <div class="chat-display">
+            <p id="ai-response">Olá. Bem-vindo à Quinta do Paraíso. Sou o seu assistente pessoal. Em que posso ser útil hoje?</p>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Escreva ou fale connosco..." autocomplete="off">
+            <button id="btn-mic" class="btn-action">🎤</button>
+            <button id="btn-send" class="btn-action">➤</button>
+        </div>
+
+        <div class="quick-chips">
+            <button class="chip" onclick="askDirect('Wi-Fi')">🔑 Wi-Fi</button>
+            <button class="chip" onclick="askDirect('Pequeno-almoço')">☕ Pequeno-almoço</button>
+            <button class="chip" onclick="askDirect('Receção')">🛎️ Receção</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
