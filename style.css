@@ -10,18 +10,15 @@
 
 body, html { width: 100%; height: 100vh; background-color: var(--bg-color); color: var(--text-color); overflow: hidden; display: flex; flex-direction: column; }
 
-/* CABEÇALHO */
 .app-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 25px; z-index: 100; transition: opacity var(--smooth), transform var(--smooth); }
 .app-header span { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase; }
 
 .lang-switcher { background: var(--glass-bg); color: #fff; border: 1px solid rgba(212,175,55,0.4); border-radius: 8px; padding: 5px 10px; outline: none; font-size: 0.9rem; cursor: pointer; }
 .lang-switcher option { background: #111; color: #fff; }
 
-/* CONTEÚDO PRINCIPAL */
 .app-main { flex: 1; width: 100%; display: flex; flex-direction: column; padding: 20px; transition: padding-top var(--smooth); }
 body:not(.idle) .app-main { padding-top: 80px; }
 
-/* ORBE DA IA */
 .ai-container { flex: 1; display: flex; justify-content: center; align-items: center; transition: all var(--smooth); min-height: 150px; }
 .ai-orb { width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--accent-color) 30%, #000 100%); box-shadow: 0 0 40px var(--accent-color), inset 0 0 20px rgba(255,255,255,0.8); animation: aiBreathe 4s ease-in-out infinite alternate; cursor: pointer; transition: all var(--smooth); }
 .ai-orb:active { transform: scale(0.95); }
@@ -30,20 +27,16 @@ body:not(.idle) .app-main { padding-top: 80px; }
 @keyframes aiBreathe { 0% { box-shadow: 0 0 30px var(--accent-color); } 100% { box-shadow: 0 0 60px var(--accent-color); transform: scale(1.02); } }
 @keyframes aiPulse { 0% { box-shadow: 0 0 50px var(--accent-color); } 100% { box-shadow: 0 0 100px #fff; } }
 
-/* INTERFACE */
 .ui-wrapper { flex-shrink: 0; width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; opacity: 1; transform: translateY(0); transition: all var(--smooth); max-height: 550px; }
 
-/* ESTADO ADORMECIDO (IDLE) */
 body.idle .app-header { opacity: 0; transform: translateY(-20px); pointer-events: none; }
 body.idle .ui-wrapper { opacity: 0; transform: translateY(50px); pointer-events: none; max-height: 0; margin: 0; gap: 0; overflow: hidden; }
 body.idle .ai-orb { width: 220px; height: 220px; box-shadow: 0 0 60px var(--accent-color), inset 0 0 30px rgba(255,255,255,0.8); }
 
-/* ÁREA DE TEXTO */
 .chat-display { min-height: 80px; text-align: center; display: flex; justify-content: center; align-items: center; padding: 0 10px; margin-bottom: 10px; }
 .chat-display p { font-size: 1.15rem; line-height: 1.6; color: #ddd; text-shadow: 0 2px 4px rgba(0,0,0,0.8); transition: opacity 0.3s ease; }
 .chat-display p.typing { opacity: 0.5; color: var(--accent-color); font-style: italic; }
 
-/* INPUTS E BOTÕES */
 .input-area { display: flex; gap: 10px; }
 .input-area input { flex: 1; background: var(--glass-bg); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 25px; padding: 15px 20px; color: #fff; font-size: 1rem; outline: none; transition: border-color 0.3s; }
 .input-area input:focus { border-color: var(--accent-color); background: rgba(212, 175, 55, 0.1); }
@@ -53,7 +46,6 @@ body.idle .ai-orb { width: 220px; height: 220px; box-shadow: 0 0 60px var(--acce
 #btn-mic.recording { background: #ff4444; color: #fff; border-color: #ff4444; animation: pulseRed 1s infinite alternate; }
 @keyframes pulseRed { from { box-shadow: 0 0 10px #ff4444; } to { box-shadow: 0 0 30px #ff4444; } }
 
-/* TÓPICOS RÁPIDOS E CATEGORIAS */
 .topics-wrapper { display: flex; flex-direction: column; align-items: center; margin-top: 10px; width: 100%; }
 .btn-topics-main { background: rgba(212, 175, 55, 0.15); border: 1px solid var(--accent-color); color: var(--accent-color); font-family: 'Cinzel', serif; font-size: 1rem; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s; width: 100%; max-width: 250px;}
 .btn-topics-main:active { background: var(--accent-color); color: #000; transform: scale(0.95); }
