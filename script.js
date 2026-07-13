@@ -1,35 +1,77 @@
-// DICIONÁRIO MULTILINGUE E CÉREBRO
+// O SINTETIZADOR DE EFEITOS SONOROS (Nativo do Browser, sem MP3s)
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(type) {
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    if(type === 'activate') {
+        // Som holográfico ascendente
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.05);
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.3);
+    } else if(type === 'deactivate') {
+        // Som de desligamento suave
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.05);
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.3);
+    }
+}
+
+// DICIONÁRIO MULTILINGUE E CÉREBRO EXPANDIDO
 const langData = {
     pt: {
         morning: "Bom dia.", afternoon: "Boa tarde.", evening: "Boa noite.",
         welcome: "Bem-vindo à Quinta do Paraíso. Sou o seu assistente pessoal. Em que posso ajudar?",
+        shortGreeting: "Estou a ouvir. O que deseja?",
         placeholder: "Escreva ou fale connosco...",
         listening: "A ouvir...",
-        processing: "A consultar dados...",
+        processing: "A analisar...",
         notUnderstood: "Não percebi. Tente novamente.",
         topicsBtn: "Tópicos Rápidos ⚡",
+        catStay: "Alojamento", catExp: "Experiências", catHelp: "Assistência",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Pequeno-almoço", reception: "🛎️ Receção", restaurant: "🍽️ Restaurante", activities: "🍇 Atividades", pool: "🏊 Piscina", checkout: "📅 Check-out", pharmacy: "💊 Farmácia" },
-        defaultResp: "Para essa questão específica, sugiro contactar a receção através do ícone nos tópicos rápidos. Teremos todo o gosto em ajudar.",
+        defaultResp: "Para essa questão mais detalhada, sugiro contactar a receção. Teremos todo o gosto em ajudar com a máxima prontidão.",
         voiceLang: "pt-PT",
         brain: [
             { k: ['wi-fi', 'wifi', 'internet', 'rede', 'password'], r: "A password do Wi-Fi é: Paraiso2026. A rede é 'Quinta do Paraíso Hóspedes'." },
             { k: ['pequeno-almoço', 'café da manhã', 'comer'], r: "O pequeno-almoço regional é servido no terraço entre as 8h00 e as 10h30." },
             { k: ['receção', 'recepção', 'emergência', 'ajuda'], r: "A receção está disponível 24 horas. Marque o número 9 no telefone do quarto." },
-            { k: ['farmácia', 'remédio', 'medicamento', 'hospital'], r: "A farmácia mais próxima fica no centro de Foz Côa (15 min). Temos kit de primeiros socorros na receção." },
-            { k: ['restaurante', 'jantar', 'almoço', 'fome'], r: "O restaurante abre das 12h30 às 15h00, e das 19h30 às 22h30. Aconselhamos reserva." },
-            { k: ['atividades', 'vinho', 'prova', 'barco'], r: "Temos provas de vinho às 15h, passeios de barco e jipe. Fale com a receção para reservar." },
-            { k: ['piscina', 'toalha', 'spa', 'massagem'], r: "A piscina funciona até às 20h. As toalhas estão no quarto. Para o Spa, solicite marcação." },
-            { k: ['check-out', 'sair', 'partida', 'horas'], r: "O check-out deve ser feito até às 12 horas. Contacte-nos se precisar de late check-out." }
+            { k: ['farmácia', 'remédio', 'medicamento', 'hospital', 'dor'], r: "A farmácia mais próxima fica no centro de Foz Côa (15 min). Temos kit de primeiros socorros na receção." },
+            { k: ['restaurante', 'jantar', 'almoço', 'fome', 'menu'], r: "O restaurante abre das 12h30 às 15h00, e das 19h30 às 22h30. Aconselhamos reserva prévia." },
+            { k: ['atividades', 'vinho', 'prova', 'barco', 'jipe', 'passeio'], r: "Temos provas de vinho às 15h, passeios de barco e jipe. Fale com a receção para confirmar disponibilidade." },
+            { k: ['piscina', 'toalha', 'spa', 'massagem', 'relaxar'], r: "A piscina funciona até às 20h. As toalhas estão no quarto. Para o Spa, solicite marcação na receção." },
+            { k: ['check-out', 'sair', 'partida', 'horas'], r: "O check-out deve ser feito até às 12 horas. Contacte-nos se precisar de late check-out." },
+            { k: ['sustentabilidade', 'ecológico', 'ambiente', 'solar', 'verde'], r: "A nossa quinta utiliza energia 100% solar, práticas agrícolas sustentáveis e uma rigorosa gestão de água para proteger o ecossistema do Douro." },
+            { k: ['história', 'família', 'origem', 'antigo'], r: "A Quinta do Paraíso está na mesma família há 12 gerações. As nossas vinhas em socalcos foram moldadas à mão pelos nossos antepassados." },
+            { k: ['animais', 'cão', 'gato', 'pet', 'pet-friendly'], r: "Somos um alojamento pet-friendly! O seu amigo de quatro patas é bem-vindo. Fornecemos comedouros e uma cama confortável no seu refúgio." },
+            { k: ['vegan', 'vegetariano', 'glúten', 'alergia', 'dieta'], r: "O nosso Chefe adapta as ementas a qualquer restrição alimentar. Por favor, avise a receção ou o restaurante das suas preferências com antecedência." }
         ]
     },
     en: {
         morning: "Good morning.", afternoon: "Good afternoon.", evening: "Good evening.",
         welcome: "Welcome to Quinta do Paraíso. I am your personal assistant. How can I help you?",
+        shortGreeting: "I'm listening. What do you need?",
         placeholder: "Type or speak to us...",
         listening: "Listening...",
-        processing: "Consulting data...",
+        processing: "Analyzing...",
         notUnderstood: "I didn't catch that. Please try again.",
         topicsBtn: "Quick Topics ⚡",
+        catStay: "Accommodation", catExp: "Experiences", catHelp: "Assistance",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Breakfast", reception: "🛎️ Reception", restaurant: "🍽️ Restaurant", activities: "🍇 Activities", pool: "🏊 Pool", checkout: "📅 Check-out", pharmacy: "💊 Pharmacy" },
         defaultResp: "For that specific question, I suggest contacting reception via the quick topics. We'll be happy to assist.",
         voiceLang: "en-GB",
@@ -37,43 +79,55 @@ const langData = {
             { k: ['wi-fi', 'wifi', 'internet', 'network', 'password'], r: "The Wi-Fi password is: Paraiso2026. Network name is 'Quinta do Paraíso Hóspedes'." },
             { k: ['breakfast', 'morning', 'eat'], r: "Our regional breakfast is served on the terrace between 8:00 AM and 10:30 AM." },
             { k: ['reception', 'emergency', 'help'], r: "Reception is open 24/7. Dial 9 from your room phone." },
-            { k: ['pharmacy', 'medicine', 'hospital', 'doctor'], r: "The nearest pharmacy is in Foz Côa (15 min drive). We have a first aid kit at reception." },
-            { k: ['restaurant', 'dinner', 'lunch', 'food'], r: "The restaurant is open from 12:30 PM to 3:00 PM, and 7:30 PM to 10:30 PM. Booking recommended." },
-            { k: ['activities', 'wine', 'tasting', 'boat'], r: "We have wine tastings at 3:00 PM, boat and jeep tours. Contact reception to book." },
-            { k: ['pool', 'towel', 'spa', 'massage'], r: "The pool is open until 8:00 PM. Towels are in your room. Please book Spa treatments in advance." },
-            { k: ['check-out', 'leave', 'departure', 'time'], r: "Check-out is at 12:00 PM. Contact us if you need a late check-out." }
+            { k: ['pharmacy', 'medicine', 'hospital', 'doctor', 'pain'], r: "The nearest pharmacy is in Foz Côa (15 min drive). We have a first aid kit at reception." },
+            { k: ['restaurant', 'dinner', 'lunch', 'food', 'menu'], r: "The restaurant is open from 12:30 PM to 3:00 PM, and 7:30 PM to 10:30 PM. Booking recommended." },
+            { k: ['activities', 'wine', 'tasting', 'boat', 'jeep', 'tour'], r: "We have wine tastings at 3:00 PM, boat and jeep tours. Contact reception to book." },
+            { k: ['pool', 'towel', 'spa', 'massage', 'relax'], r: "The pool is open until 8:00 PM. Towels are in your room. Please book Spa treatments in advance." },
+            { k: ['check-out', 'leave', 'departure', 'time'], r: "Check-out is at 12:00 PM. Contact us if you need a late check-out." },
+            { k: ['sustainability', 'eco', 'environment', 'solar', 'green'], r: "Our farm uses 100% solar energy, sustainable farming, and strict water management to protect the Douro ecosystem." },
+            { k: ['history', 'family', 'origin', 'old'], r: "Quinta do Paraíso has been in the same family for 12 generations. Our terraced vineyards were shaped by hand by our ancestors." },
+            { k: ['pets', 'dog', 'cat', 'animal', 'pet-friendly'], r: "We are pet-friendly! Your four-legged friend is welcome. We provide bowls and a comfortable bed in your accommodation." },
+            { k: ['vegan', 'vegetarian', 'gluten', 'allergy', 'diet'], r: "Our Chef adapts menus to any dietary restriction. Please inform reception or the restaurant in advance." }
         ]
     },
     es: {
         morning: "Buenos días.", afternoon: "Buenas tardes.", evening: "Buenas noches.",
         welcome: "Bienvenido a Quinta do Paraíso. Soy tu asistente personal. ¿En qué puedo ayudarte?",
+        shortGreeting: "Te escucho. ¿Qué necesitas?",
         placeholder: "Escribe o habla con nosotros...",
         listening: "Escuchando...",
-        processing: "Consultando datos...",
+        processing: "Analizando...",
         notUnderstood: "No entendí. Inténtalo de nuevo.",
         topicsBtn: "Temas Rápidos ⚡",
+        catStay: "Alojamiento", catExp: "Experiencias", catHelp: "Asistencia",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Desayuno", reception: "🛎️ Recepción", restaurant: "🍽️ Restaurante", activities: "🍇 Actividades", pool: "🏊 Piscina", checkout: "📅 Salida", pharmacy: "💊 Farmacia" },
-        defaultResp: "Para esa pregunta, sugiero contactar con recepción a través de los temas rápidos. Estaremos encantados de ayudar.",
+        defaultResp: "Para esa pregunta, sugiero contactar con recepción. Estaremos encantados de ayudar.",
         voiceLang: "es-ES",
         brain: [
             { k: ['wi-fi', 'wifi', 'internet', 'red', 'contraseña'], r: "La contraseña del Wi-Fi es: Paraiso2026. Red: 'Quinta do Paraíso Hóspedes'." },
             { k: ['desayuno', 'mañana', 'comer'], r: "El desayuno se sirve en la terraza de 8:00 a 10:30." },
             { k: ['recepción', 'recepcion', 'emergencia', 'ayuda'], r: "La recepción está abierta las 24 horas. Marca el 9 en el teléfono de tu habitación." },
-            { k: ['farmacia', 'medicina', 'hospital', 'médico'], r: "La farmacia más cercana está en Foz Côa (15 min). Hay botiquín en recepción." },
-            { k: ['restaurante', 'cena', 'comida', 'almuerzo'], r: "El restaurante abre de 12:30 a 15:00 y de 19:30 a 22:30. Sugerimos reservar." },
-            { k: ['actividades', 'vino', 'cata', 'barco'], r: "Tenemos catas a las 15:00, paseos en barco y jeep. Contacta con recepción." },
-            { k: ['piscina', 'toalla', 'spa', 'masaje'], r: "La piscina abre hasta las 20:00. Toallas en la habitación. Spa con reserva previa." },
-            { k: ['check-out', 'salida', 'salir', 'hora'], r: "El check-out es hasta las 12:00. Contacta si necesitas salida tardía." }
+            { k: ['farmacia', 'medicina', 'hospital', 'médico', 'dolor'], r: "La farmacia más cercana está en Foz Côa (15 min). Hay botiquín en recepción." },
+            { k: ['restaurante', 'cena', 'comida', 'almuerzo', 'menú'], r: "El restaurante abre de 12:30 a 15:00 y de 19:30 a 22:30. Sugerimos reservar." },
+            { k: ['actividades', 'vino', 'cata', 'barco', 'tour', 'paseo'], r: "Tenemos catas a las 15:00, paseos en barco y jeep. Contacta con recepción." },
+            { k: ['piscina', 'toalla', 'spa', 'masaje', 'relajar'], r: "La piscina abre hasta las 20:00. Toallas en la habitación. Spa con reserva previa." },
+            { k: ['check-out', 'salida', 'salir', 'hora'], r: "El check-out es hasta las 12:00. Contacta si necesitas salida tardía." },
+            { k: ['sostenibilidad', 'eco', 'medio ambiente', 'solar', 'verde'], r: "Utilizamos energía 100% solar, prácticas sostenibles y gestión de agua para proteger el Duero." },
+            { k: ['historia', 'familia', 'origen', 'antiguo'], r: "La Quinta ha estado en la familia por 12 generaciones. Nuestros viñedos fueron creados a mano." },
+            { k: ['mascotas', 'perro', 'gato', 'animal', 'pet-friendly'], r: "¡Somos pet-friendly! Proporcionamos comederos y una cama cómoda para tu mascota." },
+            { k: ['vegano', 'vegetariano', 'gluten', 'alergia', 'dieta'], r: "Nuestro Chef adapta los menús a cualquier restricción. Avisa a recepción con antelación." }
         ]
     },
     fr: {
         morning: "Bonjour.", afternoon: "Bon après-midi.", evening: "Bonsoir.",
         welcome: "Bienvenue à Quinta do Paraíso. Je suis votre assistant. Comment puis-je aider?",
+        shortGreeting: "Je vous écoute.",
         placeholder: "Écrivez ou parlez...",
         listening: "À l'écoute...",
-        processing: "Consultation des données...",
+        processing: "Analyse...",
         notUnderstood: "Je n'ai pas compris. Veuillez réessayer.",
         topicsBtn: "Sujets Rapides ⚡",
+        catStay: "Hébergement", catExp: "Expériences", catHelp: "Assistance",
         chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Petit-déjeuner", reception: "🛎️ Réception", restaurant: "🍽️ Restaurant", activities: "🍇 Activités", pool: "🏊 Piscine", checkout: "📅 Départ", pharmacy: "💊 Pharmacie" },
         defaultResp: "Pour cette question, je suggère de contacter la réception. Nous serons ravis d'aider.",
         voiceLang: "fr-FR",
@@ -81,21 +135,27 @@ const langData = {
             { k: ['wi-fi', 'wifi', 'internet', 'réseau', 'mot de passe'], r: "Le mot de passe Wi-Fi est: Paraiso2026. Réseau: 'Quinta do Paraíso Hóspedes'." },
             { k: ['petit-déjeuner', 'matin', 'manger'], r: "Le petit-déjeuner est servi sur la terrasse de 8h00 à 10h30." },
             { k: ['réception', 'urgence', 'aide'], r: "La réception est ouverte 24h/24. Composez le 9 sur le téléphone de la chambre." },
-            { k: ['pharmacie', 'médicament', 'hôpital', 'médecin'], r: "La pharmacie est à Foz Côa (15 min). Trousse de secours à la réception." },
-            { k: ['restaurant', 'dîner', 'déjeuner', 'manger'], r: "Restaurant ouvert de 12h30 à 15h00 et 19h30 à 22h30. Réservation conseillée." },
-            { k: ['activités', 'vin', 'dégustation', 'bateau'], r: "Dégustations à 15h, tours en bateau et jeep. Contactez la réception." },
-            { k: ['piscina', 'serviette', 'spa', 'massage'], r: "Piscine ouverte jusqu'à 20h. Serviettes en chambre. Spa sur réservation." },
-            { k: ['check-out', 'départ', 'partir', 'heure'], r: "Le check-out est à 12h00. Contactez-nous pour un départ tardif." }
+            { k: ['pharmacie', 'médicament', 'hôpital', 'médecin', 'douleur'], r: "La pharmacie est à Foz Côa (15 min). Trousse de secours à la réception." },
+            { k: ['restaurant', 'dîner', 'déjeuner', 'manger', 'menu'], r: "Restaurant ouvert de 12h30 à 15h00 et 19h30 à 22h30. Réservation conseillée." },
+            { k: ['activités', 'vin', 'dégustation', 'bateau', 'tour'], r: "Dégustations à 15h, tours en bateau et jeep. Contactez la réception." },
+            { k: ['piscine', 'serviette', 'spa', 'massage', 'relaxer'], r: "Piscine ouverte jusqu'à 20h. Serviettes en chambre. Spa sur réservation." },
+            { k: ['check-out', 'départ', 'partir', 'heure'], r: "Le check-out est à 12h00. Contactez-nous pour un départ tardif." },
+            { k: ['durabilité', 'éco', 'environnement', 'solaire', 'vert'], r: "Nous utilisons 100% d'énergie solaire et des pratiques agricoles durables pour protéger le Douro." },
+            { k: ['histoire', 'famille', 'origine', 'ancien'], r: "La Quinta est dans la famille depuis 12 générations. Nos vignobles ont été façonnés à la main." },
+            { k: ['animaux', 'chien', 'chat', 'animal', 'pet-friendly'], r: "Nous acceptons les animaux ! Nous fournissons des gamelles et un lit confortable." },
+            { k: ['végan', 'végétarien', 'gluten', 'allergie', 'régime'], r: "Notre chef adapte les menus. Veuillez informer la réception de vos restrictions alimentaires." }
         ]
     },
     de: {
         morning: "Guten Morgen.", afternoon: "Guten Tag.", evening: "Guten Abend.",
         welcome: "Willkommen in Quinta do Paraíso. Wie kann ich helfen?",
+        shortGreeting: "Ich höre. Was brauchen Sie?",
         placeholder: "Tippen oder sprechen...",
         listening: "Zuhören...",
-        processing: "Daten werden abgerufen...",
+        processing: "Analysieren...",
         notUnderstood: "Ich habe das nicht verstanden. Bitte versuchen Sie es erneut.",
         topicsBtn: "Schnelle Themen ⚡",
+        catStay: "Unterkunft", catExp: "Erlebnisse", catHelp: "Hilfe",
         chips: { wifi: "🔑 WLAN", breakfast: "☕ Frühstück", reception: "🛎️ Rezeption", restaurant: "🍽️ Restaurant", activities: "🍇 Aktivitäten", pool: "🏊 Pool", checkout: "📅 Check-out", pharmacy: "💊 Apotheke" },
         defaultResp: "Bitte kontaktieren Sie für diese Frage die Rezeption. Wir helfen gerne.",
         voiceLang: "de-DE",
@@ -103,11 +163,15 @@ const langData = {
             { k: ['wlan', 'wifi', 'internet', 'netzwerk', 'passwort'], r: "Das WLAN-Passwort lautet: Paraiso2026. Netzwerk: 'Quinta do Paraíso Hóspedes'." },
             { k: ['frühstück', 'morgen', 'essen'], r: "Das Frühstück wird von 8:00 bis 10:30 Uhr auf der Terrasse serviert." },
             { k: ['rezeption', 'notfall', 'hilfe'], r: "Die Rezeption ist rund um die Uhr besetzt. Wählen Sie die 9 auf Ihrem Zimmertelefon." },
-            { k: ['apotheke', 'medizin', 'krankenhaus', 'arzt'], r: "Die nächste Apotheke ist in Foz Côa (15 Min). Erste-Hilfe-Kasten an der Rezeption." },
-            { k: ['restaurant', 'abendessen', 'mittagessen', 'hunger'], r: "Das Restaurant ist von 12:30 bis 15:00 Uhr und von 19:30 bis 22:30 Uhr geöffnet." },
-            { k: ['aktivitäten', 'wein', 'weinprobe', 'boot'], r: "Weinproben um 15:00 Uhr, Boots- und Jeep-Touren. Bitte an der Rezeption buchen." },
-            { k: ['pool', 'handtuch', 'spa', 'massage'], r: "Pool bis 20:00 Uhr geöffnet. Handtücher auf dem Zimmer. Spa nach Vereinbarung." },
-            { k: ['check-out', 'abreise', 'verlassen', 'zeit'], r: "Der Check-out ist bis 12:00 Uhr. Kontaktieren Sie uns für einen späten Check-out." }
+            { k: ['apotheke', 'medizin', 'krankenhaus', 'arzt', 'schmerz'], r: "Die nächste Apotheke ist in Foz Côa (15 Min). Erste-Hilfe-Kasten an der Rezeption." },
+            { k: ['restaurant', 'abendessen', 'mittagessen', 'hunger', 'menü'], r: "Das Restaurant ist von 12:30 bis 15:00 Uhr und von 19:30 bis 22:30 Uhr geöffnet." },
+            { k: ['aktivitäten', 'wein', 'weinprobe', 'boot', 'tour'], r: "Weinproben um 15:00 Uhr, Boots- und Jeep-Touren. Bitte an der Rezeption buchen." },
+            { k: ['pool', 'handtuch', 'spa', 'massage', 'entspannen'], r: "Pool bis 20:00 Uhr geöffnet. Handtücher auf dem Zimmer. Spa nach Vereinbarung." },
+            { k: ['check-out', 'abreise', 'verlassen', 'zeit'], r: "Der Check-out ist bis 12:00 Uhr. Kontaktieren Sie uns für einen späten Check-out." },
+            { k: ['nachhaltigkeit', 'öko', 'umwelt', 'solar', 'grün'], r: "Wir nutzen 100% Solarenergie und nachhaltige Landwirtschaft zum Schutz des Douro." },
+            { k: ['geschichte', 'familie', 'ursprung', 'alt'], r: "Die Quinta ist seit 12 Generationen im Familienbesitz. Unsere Weinberge wurden von Hand angelegt." },
+            { k: ['haustiere', 'hund', 'katze', 'tier', 'haustierfreundlich'], r: "Haustiere sind willkommen! Wir stellen Näpfe und ein gemütliches Bett zur Verfügung." },
+            { k: ['vegan', 'vegetarisch', 'gluten', 'allergie', 'diät'], r: "Unser Küchenchef passt Menüs an. Bitte informieren Sie die Rezeption im Voraus." }
         ]
     }
 };
@@ -115,6 +179,7 @@ const langData = {
 let currentLang = localStorage.getItem('qpLang') || 'pt';
 let inactivityTimer;
 let isSpeaking = false; 
+let hasGreeted = false; // FLAG PARA SABER SE É A 1ª VEZ
 
 // Elementos da UI
 const body = document.body;
@@ -133,7 +198,7 @@ updateLanguageUI();
 
 langSelect.addEventListener('change', (e) => {
     currentLang = e.target.value;
-    localStorage.setItem('qpLang', currentLang); // Guarda a preferência
+    localStorage.setItem('qpLang', currentLang);
     updateLanguageUI();
 });
 
@@ -142,6 +207,10 @@ function updateLanguageUI() {
     inputField.placeholder = d.placeholder;
     btnTopics.innerText = d.topicsBtn;
     
+    document.getElementById('cat-stay').innerText = d.catStay;
+    document.getElementById('cat-exp').innerText = d.catExp;
+    document.getElementById('cat-help').innerText = d.catHelp;
+
     document.getElementById('chip-wifi').innerHTML = d.chips.wifi;
     document.getElementById('chip-breakfast').innerHTML = d.chips.breakfast;
     document.getElementById('chip-reception').innerHTML = d.chips.reception;
@@ -153,15 +222,18 @@ function updateLanguageUI() {
 }
 
 // ----------------------------------------------------
-// SISTEMA DE ESTADO (IDLE / ACTIVE)
+// SISTEMA DE ESTADO E SONS
 // ----------------------------------------------------
 function startTimer() {
     clearTimeout(inactivityTimer);
     if (isSpeaking) return; 
     
     inactivityTimer = setTimeout(() => {
-        body.classList.add('idle');
-        topicsList.classList.add('hidden');
+        if (!body.classList.contains('idle')) {
+            playSound('deactivate');
+            body.classList.add('idle');
+            topicsList.classList.add('hidden');
+        }
     }, 5000);
 }
 
@@ -183,18 +255,23 @@ orb.addEventListener('click', (e) => {
     body.classList.remove('idle');
     
     if (wasIdle) {
-        // Feedback Háptico (Vibração leve)
+        playSound('activate');
         if (navigator.vibrate) navigator.vibrate(50);
         
-        // Saudação por hora
         const d = langData[currentLang];
-        const h = new Date().getHours();
-        let saudacaoTempo = d.morning;
-        if (h >= 12 && h < 20) saudacaoTempo = d.afternoon;
-        else if (h >= 20) saudacaoTempo = d.evening;
         
-        const msg = saudacaoTempo + " " + d.welcome;
-        exibirEFalar(msg);
+        if (!hasGreeted) {
+            const h = new Date().getHours();
+            let saudacaoTempo = d.morning;
+            if (h >= 12 && h < 20) saudacaoTempo = d.afternoon;
+            else if (h >= 20 || h < 6) saudacaoTempo = d.evening;
+            
+            const msg = saudacaoTempo + " " + d.welcome;
+            hasGreeted = true; // Marca como saudado
+            exibirEFalar(msg);
+        } else {
+            exibirEFalar(d.shortGreeting);
+        }
     } else {
         startTimer();
     }
@@ -205,9 +282,7 @@ btnTopics.addEventListener('click', () => {
     startTimer();
 });
 
-// Começa com a app escondida
 startTimer();
-
 
 // ----------------------------------------------------
 // LÓGICA DO CÉREBRO
@@ -244,7 +319,6 @@ function exibirEFalar(texto) {
         if(!v) v = voices.find(vo => vo.lang.includes(utter.lang.split('-')[0]));
         if(v) utter.voice = v;
         
-        // Mantém a app acordada enquanto fala
         utter.onstart = () => { isSpeaking = true; stopTimer(); };
         utter.onend = () => { isSpeaking = false; startTimer(); };
         utter.onerror = () => { isSpeaking = false; startTimer(); };
@@ -272,7 +346,7 @@ window.askDirect = function(type) {
     responseText.classList.add('typing');
     responseText.innerText = langData[currentLang].processing;
     stopTimer();
-    topicsList.classList.add('hidden'); // Fecha gaveta de tópicos
+    topicsList.classList.add('hidden'); 
     
     setTimeout(() => {
         let searchTerm = '';
@@ -316,6 +390,7 @@ if (SpeechRecognition) {
         btnMic.classList.remove('recording');
         orb.classList.remove('listening');
         inputField.placeholder = langData[currentLang].placeholder;
+        startTimer();
     };
 
     recognition.onerror = () => {
