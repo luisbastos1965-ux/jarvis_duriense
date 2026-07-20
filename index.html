@@ -80,6 +80,92 @@
         </div>
     </main>
 
+    <!-- MENU SECRETO (Pressionar a Orbe) -->
+    <div id="secret-menu" class="full-screen-overlay">
+        <button class="btn-close-overlay" onclick="closeOverlays()">✕</button>
+        <div class="secret-split" onclick="openGarrafeira()">
+            <div class="secret-bg" style="background-image: url('Vinho7.png'); background-size: contain;"></div>
+            <div class="secret-content">
+                <h2>Garrafeira</h2>
+                <p>Compre os nossos vinhos</p>
+            </div>
+        </div>
+        <div class="secret-split" onclick="openAcademia()">
+            <div class="secret-bg" style="background-image: url('fundo_douro.jpg');"></div>
+            <div class="secret-content">
+                <h2>Academia</h2>
+                <p>A Jornada do Vinho</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- GARRAFEIRA MOBILE -->
+    <div id="screen-garrafeira" class="full-screen-overlay scrollable-overlay">
+        <button class="btn-close-overlay" onclick="closeOverlays()">✕</button>
+        <h2 class="overlay-title">Garrafeira Haute Couture</h2>
+        <div class="mobile-grid" id="mobile-wines-container">
+            <!-- Injetado via JS -->
+        </div>
+    </div>
+
+    <!-- ACADEMIA (JOGO MOBILE) -->
+    <div id="screen-academia" class="full-screen-overlay scrollable-overlay">
+        <button class="btn-close-overlay" onclick="closeOverlays()">✕</button>
+        <h2 class="overlay-title">Academia da Vindima</h2>
+        
+        <div class="game-zone-mobile">
+            <!-- FASE 1: Colheita -->
+            <div id="m-vindima-1" class="m-stage active">
+                <h3 class="stage-title">Fase 1: Colheita</h3>
+                <p class="stage-desc">Toque nas 5 uvas maduras rapidamente!</p>
+                <div class="m-vine-container" id="m-vine-container"></div>
+                <div class="m-progress"><div class="m-fill" id="m-colheita-bar"></div></div>
+                <button class="btn-game" id="m-btn-start-1" onclick="startMobileColheita()">Iniciar Colheita</button>
+                <button class="btn-game" id="m-btn-next-1" style="display:none;" onclick="advanceMobileVindima(2)">Ir para o Lagar</button>
+            </div>
+
+            <!-- FASE 2: Pisar -->
+            <div id="m-vindima-2" class="m-stage">
+                <h3 class="stage-title">Fase 2: O Lagar</h3>
+                <p class="stage-desc">Toque no lagar repetidamente para esmagar as uvas!</p>
+                <div class="m-progress"><div class="m-fill" id="m-lagar-bar"></div></div>
+                <div class="m-lagar-area" onclick="clickMobileLagar(event)"></div>
+                <button class="btn-game" id="m-btn-next-2" style="display:none; margin-top:15px;" onclick="advanceMobileVindima(3)">Ir para Fermentação</button>
+            </div>
+
+            <!-- FASE 3: Fermentação -->
+            <div id="m-vindima-3" class="m-stage">
+                <h3 class="stage-title">Fase 3: Fermentação</h3>
+                <p class="stage-desc">Mantenha a temperatura na zona verde (toque para arrefecer)!</p>
+                <div class="m-temp-meter"><div class="m-temp-pointer" id="m-temp-pointer"></div></div>
+                <div class="m-progress"><div class="m-fill" id="m-ferment-bar"></div></div>
+                <button class="btn-game btn-blue" id="m-btn-cool" onclick="coolMobileDown()" style="display:none;">❄️ Arrefecer</button>
+                <button class="btn-game" id="m-btn-start-3" onclick="startMobileFermentation()">Ligar Cubas</button>
+                <button class="btn-game" id="m-btn-next-3" style="display:none;" onclick="advanceMobileVindima(4)">Ir para Estágio</button>
+            </div>
+
+            <!-- FASE 4: Estágio -->
+            <div id="m-vindima-4" class="m-stage">
+                <h3 class="stage-title">Fase 4: Estágio</h3>
+                <p class="stage-desc">Toque para selar a barrica na zona dourada central!</p>
+                <div class="m-timing-container">
+                    <div class="m-timing-target"></div>
+                    <div class="m-timing-cursor" id="m-timing-cursor"></div>
+                </div>
+                <button class="btn-game" id="m-btn-start-4" onclick="startMobileEstagio()">Preparar Barrica</button>
+                <button class="btn-game btn-orange" id="m-btn-stop-4" onclick="stopMobileEstagio()" style="display:none;">Selar Barrica!</button>
+                <button class="btn-game" id="m-btn-next-4" style="display:none;" onclick="advanceMobileVindima(5)">Ver Resultado</button>
+            </div>
+
+            <!-- FASE 5: Sucesso -->
+            <div id="m-vindima-5" class="m-stage">
+                <h3 class="stage-title" style="font-size: 2rem; color:var(--accent-color);">Sucesso!</h3>
+                <p class="stage-desc">É oficialmente um Mestre do Douro. O seu Vinho do Porto está pronto.</p>
+                <button class="btn-game" onclick="resetMobileVindima()" style="margin-top:20px;">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
