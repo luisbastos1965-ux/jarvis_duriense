@@ -110,16 +110,31 @@
         </div>
     </div>
 
-    <!-- ACADEMIA (JOGO MOBILE) -->
-    <div id="screen-academia" class="full-screen-overlay scrollable-overlay">
+    <!-- DETALHE VINHO MOBILE (Após clicar em Informações) -->
+    <div id="mobile-wine-detail" class="full-screen-overlay scrollable-overlay" style="z-index: 2000; background: var(--bg-color);">
+        <button class="btn-close-overlay" onclick="closeMobileWineDetail()">✕</button>
+        <div class="m-detail-content" style="display:flex; flex-direction:column; align-items:center; text-align:center; padding-top:10px;">
+            <span id="m-wd-type" style="color:#aaa; text-transform:uppercase; letter-spacing: 2px; font-size:0.85rem;"></span>
+            <h2 id="m-wd-title" style="font-family:'Cinzel', serif; font-size:2.2rem; margin:10px 0; color: var(--accent-color);"></h2>
+            <img id="m-wd-img" src="" style="max-height:220px; margin:20px 0; filter:drop-shadow(0 10px 20px rgba(0,0,0,0.8)); object-fit: contain;">
+            <div id="m-wd-price" style="font-size:1.6rem; font-weight:bold; margin-bottom:20px; color: #fff;"></div>
+            <p id="m-wd-desc" style="color:#ccc; font-size:1rem; line-height:1.7; text-align:justify; margin-bottom:30px; padding: 0 10px;"></p>
+            <button class="btn-game" id="m-wd-buy" onclick="">Comprar Online</button>
+        </div>
+    </div>
+
+    <!-- ACADEMIA (JOGO MOBILE FULL-HEIGHT) -->
+    <div id="screen-academia" class="full-screen-overlay flex-overlay">
         <button class="btn-close-overlay" onclick="closeOverlays()">✕</button>
-        <h2 class="overlay-title">Academia da Vindima</h2>
+        <h2 class="overlay-title" style="margin-bottom: 10px; flex-shrink: 0;">Academia da Vindima</h2>
         
         <div class="game-zone-mobile">
             <!-- FASE 1: Colheita -->
             <div id="m-vindima-1" class="m-stage active">
-                <h3 class="stage-title">Fase 1: Colheita</h3>
-                <p class="stage-desc">Toque nas 5 uvas maduras rapidamente!</p>
+                <div class="m-stage-header">
+                    <h3 class="stage-title">Fase 1: Colheita</h3>
+                    <p class="stage-desc">Toque nas 5 uvas maduras rapidamente!</p>
+                </div>
                 <div class="m-vine-container" id="m-vine-container"></div>
                 <div class="m-progress"><div class="m-fill" id="m-colheita-bar"></div></div>
                 <button class="btn-game" id="m-btn-start-1" onclick="startMobileColheita()">Iniciar Colheita</button>
@@ -128,18 +143,26 @@
 
             <!-- FASE 2: Pisar -->
             <div id="m-vindima-2" class="m-stage">
-                <h3 class="stage-title">Fase 2: O Lagar</h3>
-                <p class="stage-desc">Toque no lagar repetidamente para esmagar as uvas!</p>
+                <div class="m-stage-header">
+                    <h3 class="stage-title">Fase 2: O Lagar</h3>
+                    <p class="stage-desc">Toque no lagar repetidamente para esmagar as uvas!</p>
+                </div>
+                <div class="m-center-wrapper">
+                    <div class="m-lagar-area" onclick="clickMobileLagar(event)"></div>
+                </div>
                 <div class="m-progress"><div class="m-fill" id="m-lagar-bar"></div></div>
-                <div class="m-lagar-area" onclick="clickMobileLagar(event)"></div>
-                <button class="btn-game" id="m-btn-next-2" style="display:none; margin-top:15px;" onclick="advanceMobileVindima(3)">Ir para Fermentação</button>
+                <button class="btn-game" id="m-btn-next-2" style="display:none;" onclick="advanceMobileVindima(3)">Ir para Fermentação</button>
             </div>
 
             <!-- FASE 3: Fermentação -->
             <div id="m-vindima-3" class="m-stage">
-                <h3 class="stage-title">Fase 3: Fermentação</h3>
-                <p class="stage-desc">Mantenha a temperatura na zona verde (toque para arrefecer)!</p>
-                <div class="m-temp-meter"><div class="m-temp-pointer" id="m-temp-pointer"></div></div>
+                <div class="m-stage-header">
+                    <h3 class="stage-title">Fase 3: Fermentação</h3>
+                    <p class="stage-desc">Mantenha a temperatura na zona verde (toque para arrefecer)!</p>
+                </div>
+                <div class="m-center-wrapper">
+                    <div class="m-temp-meter"><div class="m-temp-pointer" id="m-temp-pointer"></div></div>
+                </div>
                 <div class="m-progress"><div class="m-fill" id="m-ferment-bar"></div></div>
                 <button class="btn-game btn-blue" id="m-btn-cool" onclick="coolMobileDown()" style="display:none;">❄️ Arrefecer</button>
                 <button class="btn-game" id="m-btn-start-3" onclick="startMobileFermentation()">Ligar Cubas</button>
@@ -148,11 +171,15 @@
 
             <!-- FASE 4: Estágio -->
             <div id="m-vindima-4" class="m-stage">
-                <h3 class="stage-title">Fase 4: Estágio</h3>
-                <p class="stage-desc">Toque para selar a barrica na zona dourada central!</p>
-                <div class="m-timing-container">
-                    <div class="m-timing-target"></div>
-                    <div class="m-timing-cursor" id="m-timing-cursor"></div>
+                <div class="m-stage-header">
+                    <h3 class="stage-title">Fase 4: Estágio</h3>
+                    <p class="stage-desc">Toque para selar a barrica na zona dourada central!</p>
+                </div>
+                <div class="m-center-wrapper">
+                    <div class="m-timing-container">
+                        <div class="m-timing-target"></div>
+                        <div class="m-timing-cursor" id="m-timing-cursor"></div>
+                    </div>
                 </div>
                 <button class="btn-game" id="m-btn-start-4" onclick="startMobileEstagio()">Preparar Barrica</button>
                 <button class="btn-game btn-orange" id="m-btn-stop-4" onclick="stopMobileEstagio()" style="display:none;">Selar Barrica!</button>
@@ -161,9 +188,11 @@
 
             <!-- FASE 5: Sucesso -->
             <div id="m-vindima-5" class="m-stage">
-                <h3 class="stage-title" style="font-size: 2rem; color:var(--accent-color);">Sucesso!</h3>
-                <p class="stage-desc">É oficialmente um Mestre do Douro. O seu Vinho do Porto está pronto.</p>
-                <button class="btn-game" onclick="resetMobileVindima()" style="margin-top:20px;">Jogar Novamente</button>
+                <div class="m-center-wrapper">
+                    <h3 class="stage-title" style="font-size: 2.5rem; color:var(--accent-color); margin-bottom: 15px;">Sucesso!</h3>
+                    <p class="stage-desc" style="font-size: 1.1rem; padding: 0 20px;">Dominou a arte da viticultura e é oficialmente um Mestre do Douro.</p>
+                </div>
+                <button class="btn-game" onclick="resetMobileVindima()">Jogar Novamente</button>
             </div>
         </div>
     </div>
