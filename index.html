@@ -80,22 +80,24 @@
         </div>
     </main>
 
-    <!-- MENU SECRETO (Pressionar a Orbe) -->
+    <!-- MENU SECRETO DIAGONAL -->
     <div id="secret-menu" class="full-screen-overlay">
-        <button class="btn-close-overlay" onclick="closeOverlays()">✕</button>
-        <div class="secret-split" onclick="openGarrafeira()">
-            <div class="secret-bg" style="background-image: url('Vinho7.png'); background-size: contain;"></div>
+        <div class="secret-split top-split" onclick="openGarrafeira()">
             <div class="secret-content">
                 <h2>Garrafeira</h2>
-                <p>Compre os nossos vinhos</p>
+                <p>Vinhos de Autor</p>
             </div>
         </div>
-        <div class="secret-split" onclick="openAcademia()">
-            <div class="secret-bg" style="background-image: url('fundo_douro.jpg');"></div>
+        
+        <div class="secret-split bottom-split" onclick="openAcademia()">
             <div class="secret-content">
                 <h2>Academia</h2>
-                <p>A Jornada do Vinho</p>
+                <p>Jornada do Vinho</p>
             </div>
+        </div>
+
+        <div class="btn-close-diagonal" onclick="closeOverlays()">
+            <span>✕</span>
         </div>
     </div>
 
