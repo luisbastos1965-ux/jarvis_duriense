@@ -129,6 +129,16 @@
         <h2 class="overlay-title" style="margin-bottom: 10px; flex-shrink: 0;">Academia da Vindima</h2>
         
         <div class="game-zone-mobile">
+            <!-- OVERLAY GAME OVER (Insucesso) -->
+            <div id="m-game-over" class="m-game-over-overlay">
+                <div class="m-game-over-content">
+                    <span class="fail-icon">⚠️</span>
+                    <h3>Produção Falhou</h3>
+                    <p>Infelizmente não conseguiu manter o padrão de excelência da Quinta do Paraíso. O lote de vinho foi perdido.</p>
+                    <button class="btn-game btn-orange" onclick="hideGameOverAndReset()">Tentar Novamente</button>
+                </div>
+            </div>
+
             <!-- FASE 1: Colheita -->
             <div id="m-vindima-1" class="m-stage active">
                 <div class="m-stage-header">
