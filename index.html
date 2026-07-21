@@ -16,6 +16,54 @@
 </head>
 <body class="idle">
 
+    <!-- TUTORIAL 1: BLOQUEIO DE INSTALAÇÃO (Mostrado apenas no Browser) -->
+    <div id="install-overlay" class="tut-overlay">
+        <div class="tut-content">
+            <h2 class="tut-title">Instale a Aplicação</h2>
+            <p class="tut-desc">Para aceder ao Assistente IA e ao Menu Secreto com o jogo da Academia, é obrigatório instalar a aplicação no seu telemóvel.</p>
+            
+            <div id="tut-ios" class="tut-steps" style="display:none;">
+                <p><strong>No iPhone (Safari):</strong></p>
+                <p>1. Toque no ícone de Partilha <span style="font-size: 1.2rem;">⍐</span> no fundo do ecrã.</p>
+                <p>2. Deslize para baixo e selecione <strong>"Ecrã Principal"</strong> (Add to Home Screen).</p>
+                <p>3. Toque em <strong>"Adicionar"</strong> e abra a App a partir do menu do telemóvel.</p>
+            </div>
+
+            <div id="tut-android" class="tut-steps" style="display:none;">
+                <p><strong>No Android (Chrome):</strong></p>
+                <p>1. Toque nos 3 pontos <span style="font-size: 1.2rem;">⋮</span> no canto superior direito.</p>
+                <p>2. Selecione <strong>"Adicionar ao ecrã principal"</strong> (Install App).</p>
+                <p>3. Confirme e abra a App diretamente pelo ícone criado no seu telemóvel.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TUTORIAL 2: GUIA DE PRIMEIRA VIAGEM (Mostrado na App instalada 1x) -->
+    <div id="welcome-tutorial-overlay" class="tut-overlay">
+        <div class="tut-content">
+            <h2 class="tut-title">Bem-vindo(a)</h2>
+            <p class="tut-desc">Antes de começar, conheça os controlos do seu novo Concierge Digital:</p>
+            
+            <div class="tut-feature">
+                <div class="tut-icon">👆</div>
+                <div>
+                    <h4>Um Toque Curto</h4>
+                    <p>Acorda a Inteligência Artificial para tirar dúvidas ou aceder aos tópicos rápidos.</p>
+                </div>
+            </div>
+            
+            <div class="tut-feature">
+                <div class="tut-icon">👆⏳</div>
+                <div>
+                    <h4>Pressionar e Segurar</h4>
+                    <p>Pressione a Orbe continuamente por 1 segundo para desbloquear o Menu Secreto (Garrafeira e Jogo).</p>
+                </div>
+            </div>
+
+            <button class="btn-tut" onclick="startAppTutorial()">Começar a Explorar</button>
+        </div>
+    </div>
+
     <header class="app-header">
         <span id="ui-title">Quinta do Paraíso</span>
         <select id="lang-select" class="lang-switcher">
@@ -110,7 +158,7 @@
         </div>
     </div>
 
-    <!-- DETALHE VINHO MOBILE (Após clicar em Informações) -->
+    <!-- DETALHE VINHO MOBILE -->
     <div id="mobile-wine-detail" class="full-screen-overlay scrollable-overlay" style="z-index: 2000; background: var(--bg-color);">
         <button class="btn-close-overlay" onclick="closeMobileWineDetail()">✕</button>
         <div class="m-detail-content" style="display:flex; flex-direction:column; align-items:center; text-align:center; padding-top:10px;">
@@ -123,7 +171,7 @@
         </div>
     </div>
 
-    <!-- ACADEMIA (JOGO MOBILE FULL-HEIGHT) -->
+    <!-- ACADEMIA -->
     <div id="screen-academia" class="full-screen-overlay flex-overlay">
         <button class="btn-close-overlay" onclick="closeOverlays()">✕</button>
         <h2 class="overlay-title" style="margin-bottom: 10px; flex-shrink: 0;">Academia da Vindima</h2>
