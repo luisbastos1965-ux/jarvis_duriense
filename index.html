@@ -186,13 +186,18 @@
                 <button class="btn-game" id="m-btn-next-4" style="display:none;" onclick="advanceMobileVindima(5)">Ver Resultado</button>
             </div>
 
-            <!-- FASE 5: Sucesso -->
+            <!-- FASE 5: Sucesso Premium -->
             <div id="m-vindima-5" class="m-stage">
-                <div class="m-center-wrapper">
-                    <h3 class="stage-title" style="font-size: 2.5rem; color:var(--accent-color); margin-bottom: 15px;">Sucesso!</h3>
-                    <p class="stage-desc" style="font-size: 1.1rem; padding: 0 20px;">Dominou a arte da viticultura e é oficialmente um Mestre do Douro.</p>
+                <div class="m-center-wrapper success-wrapper">
+                    <div class="medal-icon">🏆</div>
+                    <h3 class="stage-title" style="font-size: 2.5rem; color:var(--accent-color); margin-bottom: 10px;">Mestre do Douro!</h3>
+                    <p class="stage-desc" style="font-size: 1.05rem; padding: 0 10px; margin-bottom: 20px; color:#fff;">A sua mestria gerou um Vinho de excelência. A Quinta do Paraíso orgulha-se do seu talento.</p>
+                    <div class="success-badge">Colheita Perfeita</div>
                 </div>
-                <button class="btn-game" onclick="resetMobileVindima()">Jogar Novamente</button>
+                <div style="display:flex; flex-direction:column; gap:10px; width:100%; margin-top:auto;">
+                    <button class="btn-game btn-orange" onclick="closeOverlays(); openGarrafeira();">Celebrar na Garrafeira</button>
+                    <button class="btn-game" onclick="resetMobileVindima()">Nova Colheita</button>
+                </div>
             </div>
         </div>
     </div>
