@@ -1,4 +1,4 @@
-// O SINTETIZADOR DE EFEITOS SONOROS (COM A LÓGICA DE HOLDING)
+// O SINTETIZADOR DE EFEITOS SONOROS
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 window.holdOsc = null;
 window.holdGain = null;
@@ -59,11 +59,45 @@ function playSound(type) {
 }
 
 // GESTÃO DE MÚSICA DE FUNDO
-// * (Nota: Basta colocares os ficheiros garrafeira.mp3 e academia.mp3 na mesma pasta) *
 const bgmGarrafeira = new Audio('garrafeira.mp3');
 bgmGarrafeira.loop = true;
 const bgmAcademia = new Audio('academia.mp3');
 bgmAcademia.loop = true;
+
+// ==============================================================================
+// GESTÃO DOS TUTORIAIS (PWA E PRIMEIRA VIAGEM)
+// ==============================================================================
+window.addEventListener('DOMContentLoaded', () => {
+    // Verifica se a App está a correr em Standalone (PWA Instalada)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    
+    if (!isStandalone) {
+        // Bloqueia no browser e exige instalação
+        document.getElementById('install-overlay').style.display = 'flex';
+        
+        // Verifica sistema operativo para dar as instruções certas
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if(isIOS) {
+            document.getElementById('tut-ios').style.display = 'block';
+        } else {
+            document.getElementById('tut-android').style.display = 'block';
+        }
+    } else {
+        // App está instalada. Verifica se é a primeira vez
+        const tutSeen = localStorage.getItem('qp_tut_seen');
+        if (!tutSeen) {
+            document.getElementById('welcome-tutorial-overlay').style.display = 'flex';
+        } else {
+            startTimer();
+        }
+    }
+});
+
+window.startAppTutorial = function() {
+    localStorage.setItem('qp_tut_seen', 'true');
+    document.getElementById('welcome-tutorial-overlay').style.display = 'none';
+    startTimer();
+};
 
 // ==============================================================================
 // O "SUPER CÉREBRO" 
@@ -108,11 +142,7 @@ const langData = {
             { k: ['comprar', 'loja', 'garrafa', 'levar vinho', 'encomendar'], r: "Pode adquirir os nossos vinhos e azeite na nossa loja física. Também efetuamos envios internacionais para sua casa." },
             { k: ['obrigado', 'obrigada', 'agradeço', 'valeu', 'excelente'], r: "De nada! É um enorme privilégio ter-vos na Quinta do Paraíso. Estou sempre aqui se precisarem." }
         ]
-    },
-    en: { placeholder: "Type or speak...", listening: "Listening...", processing: "Processing...", notUnderstood: "Can you rephrase?", topicsBtn: "Quick Topics ⚡", catStay: "Stay", catExp: "Experiences", catHelp: "Help", chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Breakfast", reception: "🛎️ Reception", restaurant: "🍽️ Restaurant", activities: "🍇 Activities", pool: "🏊 Pool", checkout: "📅 Check-out", pharmacy: "💊 Pharmacy", spa: "🧖‍♀️ Spa", transport: "🚕 Transport" }, defaultResp: "Please contact reception.", voiceLang: "en-GB", brain: [] },
-    es: { placeholder: "Escribe o habla...", listening: "Escuchando...", processing: "Procesando...", notUnderstood: "¿Puedes reformular?", topicsBtn: "Temas Rápidos ⚡", catStay: "Alojamiento", catExp: "Experiencias", catHelp: "Asistencia", chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Desayuno", reception: "🛎️ Recepción", restaurant: "🍽️ Restaurante", activities: "🍇 Actividades", pool: "🏊 Piscina", checkout: "📅 Salida", pharmacy: "💊 Farmacia", spa: "🧖‍♀️ Spa", transport: "🚕 Transporte" }, defaultResp: "Por favor contacta recepción.", voiceLang: "es-ES", brain: [] },
-    fr: { placeholder: "Écrivez ou parlez...", listening: "J'écoute...", processing: "Analyse...", notUnderstood: "Pouvez-vous reformuler?", topicsBtn: "Sujets Rapides ⚡", catStay: "Hébergement", catExp: "Expériences", catHelp: "Assistance", chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Petit-déj", reception: "🛎️ Réception", restaurant: "🍽️ Restaurant", activities: "🍇 Activités", pool: "🏊 Piscine", checkout: "📅 Départ", pharmacy: "💊 Pharmacie", spa: "🧖‍♀️ Spa", transport: "🚕 Transport" }, defaultResp: "Veuillez contacter la réception.", voiceLang: "fr-FR", brain: [] },
-    de: { placeholder: "Tippen oder sprechen...", listening: "Höre...", processing: "Analysiere...", notUnderstood: "Bitte umformulieren?", topicsBtn: "Schnelle Themen ⚡", catStay: "Unterkunft", catExp: "Erlebnisse", catHelp: "Hilfe", chips: { wifi: "🔑 WLAN", breakfast: "☕ Frühstück", reception: "🛎️ Rezeption", restaurant: "🍽️ Restaurant", activities: "🍇 Aktivitäten", pool: "🏊 Pool", checkout: "📅 Check-out", pharmacy: "💊 Apotheke", spa: "🧖‍♀️ Spa", transport: "🚕 Transport" }, defaultResp: "Bitte kontaktieren Sie die Rezeption.", voiceLang: "de-DE", brain: [] }
+    }
 };
 
 let currentLang = localStorage.getItem('qpLang') || 'pt';
@@ -142,21 +172,23 @@ langSelect.addEventListener('change', (e) => {
 
 function updateLanguageUI() {
     const d = langData[currentLang];
-    inputField.placeholder = d.placeholder;
-    btnTopics.innerText = d.topicsBtn;
-    document.getElementById('cat-stay').innerText = d.catStay;
-    document.getElementById('cat-exp').innerText = d.catExp;
-    document.getElementById('cat-help').innerText = d.catHelp;
-    document.getElementById('chip-wifi').innerHTML = d.chips.wifi;
-    document.getElementById('chip-breakfast').innerHTML = d.chips.breakfast;
-    document.getElementById('chip-reception').innerHTML = d.chips.reception;
-    document.getElementById('chip-restaurant').innerHTML = d.chips.restaurant;
-    document.getElementById('chip-activities').innerHTML = d.chips.activities;
-    document.getElementById('chip-pool').innerHTML = d.chips.pool;
-    document.getElementById('chip-checkout').innerHTML = d.chips.checkout;
-    document.getElementById('chip-pharmacy').innerHTML = d.chips.pharmacy;
-    document.getElementById('chip-spa').innerHTML = d.chips.spa;
-    document.getElementById('chip-transport').innerHTML = d.chips.transport;
+    if(d) {
+        inputField.placeholder = d.placeholder;
+        btnTopics.innerText = d.topicsBtn;
+        document.getElementById('cat-stay').innerText = d.catStay;
+        document.getElementById('cat-exp').innerText = d.catExp;
+        document.getElementById('cat-help').innerText = d.catHelp;
+        document.getElementById('chip-wifi').innerHTML = d.chips.wifi;
+        document.getElementById('chip-breakfast').innerHTML = d.chips.breakfast;
+        document.getElementById('chip-reception').innerHTML = d.chips.reception;
+        document.getElementById('chip-restaurant').innerHTML = d.chips.restaurant;
+        document.getElementById('chip-activities').innerHTML = d.chips.activities;
+        document.getElementById('chip-pool').innerHTML = d.chips.pool;
+        document.getElementById('chip-checkout').innerHTML = d.chips.checkout;
+        document.getElementById('chip-pharmacy').innerHTML = d.chips.pharmacy;
+        document.getElementById('chip-spa').innerHTML = d.chips.spa;
+        document.getElementById('chip-transport').innerHTML = d.chips.transport;
+    }
 }
 
 if ('speechSynthesis' in window) {
@@ -212,7 +244,7 @@ orb.addEventListener('mouseleave', cancelPress);
 function startPress(e) {
     isLongPress = false;
     orb.classList.add('holding');
-    playSound('holding_start'); // Efeito sonoro do holding a carregar
+    playSound('holding_start');
     pressTimer = setTimeout(() => {
         isLongPress = true;
         orb.classList.remove('holding');
@@ -247,7 +279,6 @@ orb.addEventListener('click', (e) => {
         if (navigator.vibrate) navigator.vibrate(50);
         
         const d = langData[currentLang];
-        
         if (!hasGreeted) {
             const h = new Date().getHours();
             let saudacaoTempo = d.morning;
@@ -269,8 +300,6 @@ btnTopics.addEventListener('click', () => {
     topicsList.classList.toggle('hidden');
     startTimer();
 });
-
-startTimer();
 
 function processarPergunta(keywordOrPhrase) {
     const d = langData[currentLang];
@@ -333,10 +362,7 @@ window.askDirect = function(keyword) {
     responseText.innerText = langData[currentLang].processing;
     stopTimer();
     topicsList.classList.add('hidden'); 
-    
-    setTimeout(() => {
-        processarPergunta(keyword);
-    }, 400);
+    setTimeout(() => { processarPergunta(keyword); }, 400);
 };
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -407,9 +433,6 @@ function closeOverlays() {
     startTimer();
 }
 
-// ----------------------------------------------------
-// GARRAFEIRA MOBILE & DETALHE
-// ----------------------------------------------------
 window.flipMobileWineCard = function(card) {
     document.querySelectorAll('.m-wine-card').forEach(c => {
         if(c !== card) c.classList.remove('flipped');
@@ -435,7 +458,7 @@ window.openGarrafeira = function() {
                         <p style="font-size:0.8rem; color:#888; margin-top: auto; padding-top: 10px;">Toque para virar</p>
                     </div>
                     <div class="m-wine-back" ${w.id === 'w7' ? 'style="border-color:var(--accent-color);"' : ''}>
-                        <h4 class="m-wine-name" style="margin-bottom:10px;">${w.name}</h4>
+                        <h4 class="m-wine-name">${w.name}</h4>
                         <p class="m-wine-desc">${w.short}</p>
                         <div class="m-actions-wrap">
                             <button class="m-btn-buy" style="background:transparent; border:1px solid var(--accent-color); color:var(--accent-color);" onclick="event.stopPropagation(); showMobileWineDetail('${w.id}')">Informações</button>
