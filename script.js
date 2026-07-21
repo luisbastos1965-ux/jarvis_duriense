@@ -31,7 +31,7 @@ function playSound(type) {
 }
 
 // ==============================================================================
-// O "SUPER CÉREBRO"
+// O "SUPER CÉREBRO" 
 // ==============================================================================
 const langData = {
     pt: {
@@ -48,28 +48,30 @@ const langData = {
         defaultResp: "A minha base de dados não encontrou uma resposta exata. Sugiro que contacte a nossa receção através dos tópicos rápidos.",
         voiceLang: "pt-PT",
         brain: [
-            { k: ['criador', 'criadora', 'quem te criou', 'projeto', 'pap', 'sara reis', 'quem és tu'], r: "Eu sou o Cérebro Digital da Quinta do Paraíso. Fui desenvolvida pela Sara Reis, no âmbito da sua Prova de Aptidão Profissional." },
-            { k: ['calor', 'sol', 'quente', 'temperatura', 'verão', 'pôr do sol', 'clima'], r: "Com o magnífico calor do Douro, a minha lógica sugere um mergulho na piscina panorâmica com um copo de Tavedo Rosé bem fresco." },
-            { k: ['chuva', 'chover', 'frio', 'inverno', 'mau tempo'], r: "Para dias de chuva, sugerimos uma prova na nossa adega secular, seguida do nosso Spa de Vinoterapia." },
-            { k: ['cansaço', 'cansado', 'relaxar', 'massagem', 'stress', 'spa', 'dor', 'sauna', 'jacuzzi', 'bem-estar'], r: "O Spa de Vinoterapia utiliza as propriedades antioxidantes das nossas uvas. Solicite a carta de tratamentos na receção." },
-            { k: ['restaurante', 'jantar', 'almoço', 'fome', 'comida', 'menu', 'pratos'], r: "O almoço é das 12h30 às 15h00 e o jantar das 19h30 às 22h30. Aconselhamos reserva." },
-            { k: ['vegan', 'vegetariano', 'glúten', 'alergia', 'dieta', 'intolerância'], r: "A nossa cozinha adapta-se sem problema. O Chef prepara opções sem glúten ou vegan. Basta informar-nos." },
-            { k: ['crianças', 'filhos', 'bebé', 'berço', 'brincar', 'jogar', 'infantil'], r: "Disponibilizamos berços e camas extra. O Chef prepara menus infantis especiais." },
-            { k: ['wi-fi', 'wifi', 'internet', 'rede', 'password', 'senha'], r: "A password da nossa rede Wi-Fi é: Paraiso2026. Ligue-se à rede 'Quinta do Paraíso Hóspedes'." },
-            { k: ['pequeno-almoço', 'café da manhã'], r: "O pequeno-almoço é servido no terraço com vista para o rio, entre as 8h00 e as 10h30." },
-            { k: ['receção', 'recepção', 'emergência', 'ajuda', 'urgente', 'problema', 'regras'], r: "A nossa receção e segurança funcionam 24 horas. Marque 9 no seu telefone do quarto." },
-            { k: ['farmácia', 'remédio', 'medicamento', 'hospital', 'doente'], r: "A farmácia e o hospital ficam em Foz Côa (15 mins). Dispomos de kit de primeiros socorros na receção." },
-            { k: ['atividades', 'barco', 'jipe', 'caminhada', 'trilhos', 'bicicleta'], r: "Temos passeios de jipe, cruzeiros no Barco Rabelo ou trilhos a pé. Fale com a receção." },
-            { k: ['vinho', 'prova', 'adega', 'degustação', 'enólogo', 'castas', 'porto'], r: "Produzimos vinhos DOC e Vinho do Porto. Temos visitas à adega e provas comentadas diariamente às 15h00." },
-            { k: ['piscina', 'nadar', 'mergulho'], r: "A piscina panorâmica exterior está aberta até às 20 horas. Tem toalhas exclusivas no quarto." },
-            { k: ['check-out', 'check in', 'check-in', 'sair', 'partida', 'horas', 'fatura'], r: "O check-in é a partir das 15h e o check-out até às 12h. A receção está disponível para faturas." },
-            { k: ['sustentabilidade', 'ecológico', 'ambiente', 'solar', 'verde', 'natureza'], r: "Usamos energia 100% solar e protegemos a fauna local. A nossa agricultura respeita o ecossistema." },
-            { k: ['animais', 'cão', 'gato', 'pet', 'pet-friendly', 'animal'], r: "Somos pet-friendly! O seu companheiro tem à sua espera comedouros e cama." },
-            { k: ['quarto', 'limpeza', 'toalhas', 'housekeeping', 'sujo', 'televisão', 'lavandaria'], r: "O Housekeeping limpa de manhã. Temos serviço de quartos 24h; marque 9." },
-            { k: ['transporte', 'táxi', 'transfer', 'aeroporto', 'comboio', 'carro'], r: "Temos parque gratuito com postos elétricos. A receção trata de transfers e táxis." },
-            { k: ['eventos', 'casamento', 'romântico', 'lua de mel', 'piquenique', 'aniversário'], r: "Preparamos piqueniques românticos ou aniversários. O nosso Concierge fará um plano." },
-            { k: ['comprar', 'loja', 'garrafa', 'levar vinho', 'encomendar'], r: "Pode adquirir os nossos vinhos na loja física ou encomendar online com envio internacional." },
-            { k: ['obrigado', 'obrigada', 'agradeço', 'excelente'], r: "De nada! É um enorme privilégio ter-vos na Quinta do Paraíso. Estou sempre aqui se precisarem." }
+            { k: ['criador', 'criadora', 'quem te criou', 'projeto', 'pap', 'sara reis', 'quem és tu'], r: "Eu sou o Cérebro Digital da Quinta do Paraíso. Fui desenvolvida pela Sara Reis, no âmbito da sua Prova de Aptidão Profissional. Um projeto feito com muita dedicação e tecnologia." },
+            { k: ['calor', 'sol', 'quente', 'temperatura', 'verão', 'pôr do sol', 'clima'], r: "Com o magnífico calor do Douro, a minha lógica sugere um mergulho na nossa piscina panorâmica acompanhado de um copo de Tavedo Rosé bem fresco." },
+            { k: ['chuva', 'chover', 'frio', 'inverno', 'mau tempo'], r: "Para dias de chuva, sugerimos uma prova de vinhos abrigada na nossa adega secular, seguida de uma sessão relaxante no Spa de Vinoterapia." },
+            { k: ['cansaço', 'cansado', 'relaxar', 'massagem', 'stress', 'spa', 'dor', 'sauna', 'jacuzzi', 'bem-estar'], r: "O nosso Spa de Vinoterapia utiliza as propriedades antioxidantes das nossas uvas para um relaxamento profundo. Solicite a nossa carta de tratamentos na receção." },
+            { k: ['restaurante', 'jantar', 'almoço', 'fome', 'comida', 'menu', 'pratos'], r: "O nosso restaurante de fusão está à sua disposição. O almoço é das 12h30 às 15h00 e o jantar das 19h30 às 22h30. Aconselhamos reserva." },
+            { k: ['vegan', 'vegetariano', 'glúten', 'alergia', 'dieta', 'intolerância'], r: "A nossa cozinha é totalmente adaptável. O Chef prepara refeições sem glúten, vegan ou ajustadas a alergias. Basta informar-nos." },
+            { k: ['crianças', 'filhos', 'bebé', 'berço', 'brincar', 'jogar', 'infantil'], r: "Disponibilizamos berços e camas extra. As crianças adoram a 'Academia da Vinha' no nosso site, e o Chef prepara menus infantis especiais." },
+            { k: ['atrações', 'visitar', 'foz côa', 'museu', 'redondezas', 'passear'], r: "Recomendo o Parque Arqueológico do Vale do Côa, os miradouros locais e as Aldeias Vinhateiras. O Concierge pode desenhar um mapa personalizado." },
+            { k: ['wi-fi', 'wifi', 'internet', 'rede', 'password', 'senha'], r: "A password da nossa rede Wi-Fi de alta velocidade é: Paraiso2026. Ligue-se à rede 'Quinta do Paraíso Hóspedes'." },
+            { k: ['pequeno-almoço', 'café da manhã', 'pequeno almoço'], r: "O pequeno-almoço com produtos regionais é servido no terraço com vista para o rio, todas as manhãs entre as 8h00 e as 10h30." },
+            { k: ['receção', 'recepção', 'emergência', 'ajuda', 'urgente', 'problema', 'regras'], r: "A nossa receção e segurança funcionam 24 horas por dia. Dirija-se ao edifício principal ou marque 9 no seu telefone." },
+            { k: ['farmácia', 'remédio', 'medicamento', 'hospital', 'doente'], r: "A farmácia e o hospital mais próximos ficam no centro de Foz Côa, a 15 minutos de carro. Dispomos de kit de primeiros socorros na receção." },
+            { k: ['atividades', 'barco', 'jipe', 'caminhada', 'trilhos', 'bicicleta', 'cruzeiro'], r: "Explore a região através dos nossos passeios de jipe, cruzeiros no Barco Rabelo, ou trilhos a pé. Fale com a receção para agendar." },
+            { k: ['vinho', 'prova', 'adega', 'degustação', 'enólogo', 'castas', 'vindimas', 'porto'], r: "Produzimos vinhos DOC e Vinho do Porto. Temos visitas à adega e provas comentadas diariamente às 15h00." },
+            { k: ['piscina', 'nadar', 'mergulho'], r: "A nossa piscina panorâmica exterior está aberta até às 20 horas. Tem toalhas exclusivas no seu quarto." },
+            { k: ['check-out', 'check in', 'check-in', 'sair', 'partida', 'horas', 'pagar', 'fatura'], r: "O check-in faz-se a partir das 15h e o check-out até às 12h. Para faturas ou pedir late check-out, a receção está disponível." },
+            { k: ['sustentabilidade', 'ecológico', 'ambiente', 'solar', 'verde', 'natureza'], r: "A Quinta orgulha-se de usar energia 100% solar e proteger a fauna local. A nossa agricultura respeita o ecossistema do Douro." },
+            { k: ['história', 'família', 'origem', 'antigo', 'fundação'], r: "As raízes desta quinta estendem-se por 12 gerações. Os socalcos que vê foram moldados à mão pelos nossos antepassados." },
+            { k: ['animais', 'cão', 'gato', 'pet', 'pet-friendly', 'animal'], r: "Somos orgulhosamente pet-friendly! O seu companheiro de quatro patas tem à sua espera comedouros e uma cama confortável." },
+            { k: ['quarto', 'limpeza', 'toalhas', 'housekeeping', 'sujo', 'televisão', 'ar condicionado', 'lavandaria'], r: "O Housekeeping limpa de manhã. Temos lavandaria e serviço de quartos 24h; marque 9 para qualquer pedido." },
+            { k: ['transporte', 'táxi', 'transfer', 'aeroporto', 'comboio', 'pinhão', 'estacionamento', 'carro'], r: "Temos parque gratuito com postos elétricos. Se precisar de táxi ou transfer para o aeroporto ou estação, a receção tratará de tudo." },
+            { k: ['eventos', 'casamento', 'romântico', 'lua de mel', 'piquenique', 'reunião', 'aniversário'], r: "Preparamos momentos inesquecíveis: piqueniques românticos, aniversários ou eventos privados. O Concierge fará um plano à medida." },
+            { k: ['comprar', 'loja', 'garrafa', 'levar vinho', 'encomendar'], r: "Pode adquirir os nossos vinhos e azeite na nossa loja física. Também efetuamos envios internacionais para sua casa." },
+            { k: ['obrigado', 'obrigada', 'agradeço', 'valeu', 'excelente'], r: "De nada! É um enorme privilégio ter-vos na Quinta do Paraíso. Estou sempre aqui se precisarem." }
         ]
     },
     en: { placeholder: "Type or speak...", listening: "Listening...", processing: "Processing...", notUnderstood: "Can you rephrase?", topicsBtn: "Quick Topics ⚡", catStay: "Stay", catExp: "Experiences", catHelp: "Help", chips: { wifi: "🔑 Wi-Fi", breakfast: "☕ Breakfast", reception: "🛎️ Reception", restaurant: "🍽️ Restaurant", activities: "🍇 Activities", pool: "🏊 Pool", checkout: "📅 Check-out", pharmacy: "💊 Pharmacy", spa: "🧖‍♀️ Spa", transport: "🚕 Transport" }, defaultResp: "Please contact reception.", voiceLang: "en-GB", brain: [] },
@@ -368,13 +370,20 @@ function closeOverlays() {
 // ----------------------------------------------------
 // GARRAFEIRA MOBILE & DETALHE
 // ----------------------------------------------------
+window.flipMobileWineCard = function(card) {
+    document.querySelectorAll('.m-wine-card').forEach(c => {
+        if(c !== card) c.classList.remove('flipped');
+    });
+    card.classList.toggle('flipped');
+}
+
 window.openGarrafeira = function() {
     const container = document.getElementById('mobile-wines-container');
     container.innerHTML = ''; 
 
     mobileWines.forEach(w => {
         container.innerHTML += `
-            <div class="m-wine-card" id="card-${w.id}" onclick="this.classList.toggle('flipped')">
+            <div class="m-wine-card" id="card-${w.id}" onclick="flipMobileWineCard(this)">
                 <div class="m-wine-inner">
                     <div class="m-wine-front" ${w.id === 'w7' ? 'style="border-color:var(--accent-color);"' : ''}>
                         <div class="m-wine-type">${w.type}</div>
@@ -389,7 +398,6 @@ window.openGarrafeira = function() {
                         <div class="m-actions-wrap">
                             <button class="m-btn-buy" style="background:transparent; border:1px solid var(--accent-color); color:var(--accent-color);" onclick="event.stopPropagation(); showMobileWineDetail('${w.id}')">Informações</button>
                             <button class="m-btn-buy" onclick="event.stopPropagation(); window.open('${w.link}', '_blank')">Comprar Online</button>
-                            <button class="m-btn-buy" style="background:transparent; border:1px solid #888; color:#fff;" onclick="event.stopPropagation(); document.getElementById('card-${w.id}').classList.remove('flipped')">Voltar</button>
                         </div>
                     </div>
                 </div>
