@@ -1,15 +1,17 @@
-// O SINTETIZADOR DE EFEITOS SONOROS
+// O SINTETIZADOR DE EFEITOS SONOROS (COM A LÓGICA DE HOLDING)
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+window.holdOsc = null;
+window.holdGain = null;
 
 function playSound(type) {
     if(audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
     
     if(type === 'activate') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
         osc.type = 'sine';
         osc.frequency.setValueAtTime(400, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.15);
@@ -19,6 +21,11 @@ function playSound(type) {
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.3);
     } else if(type === 'deactivate') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
         osc.type = 'sine';
         osc.frequency.setValueAtTime(800, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.2);
@@ -27,8 +34,36 @@ function playSound(type) {
         gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.3);
+    } else if(type === 'holding_start') {
+        window.holdOsc = audioCtx.createOscillator();
+        window.holdGain = audioCtx.createGain();
+        window.holdOsc.connect(window.holdGain);
+        window.holdGain.connect(audioCtx.destination);
+        
+        window.holdOsc.type = 'sine';
+        window.holdOsc.frequency.setValueAtTime(300, audioCtx.currentTime);
+        window.holdOsc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.8);
+        
+        window.holdGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        window.holdGain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.4);
+        
+        window.holdOsc.start(audioCtx.currentTime);
+    } else if(type === 'holding_stop') {
+        if(window.holdGain && window.holdOsc) {
+            window.holdGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.2);
+            window.holdOsc.stop(audioCtx.currentTime + 0.2);
+            window.holdGain = null;
+            window.holdOsc = null;
+        }
     }
 }
+
+// GESTÃO DE MÚSICA DE FUNDO
+// * (Nota: Basta colocares os ficheiros garrafeira.mp3 e academia.mp3 na mesma pasta) *
+const bgmGarrafeira = new Audio('garrafeira.mp3');
+bgmGarrafeira.loop = true;
+const bgmAcademia = new Audio('academia.mp3');
+bgmAcademia.loop = true;
 
 // ==============================================================================
 // O "SUPER CÉREBRO" 
@@ -177,6 +212,7 @@ orb.addEventListener('mouseleave', cancelPress);
 function startPress(e) {
     isLongPress = false;
     orb.classList.add('holding');
+    playSound('holding_start'); // Efeito sonoro do holding a carregar
     pressTimer = setTimeout(() => {
         isLongPress = true;
         orb.classList.remove('holding');
@@ -190,11 +226,13 @@ function startPress(e) {
 function endPress(e) {
     clearTimeout(pressTimer);
     orb.classList.remove('holding');
+    playSound('holding_stop');
 }
 
 function cancelPress(e) {
     clearTimeout(pressTimer);
     orb.classList.remove('holding');
+    playSound('holding_stop');
 }
 
 orb.addEventListener('click', (e) => {
@@ -364,6 +402,8 @@ function openSecretMenu() {
 
 function closeOverlays() {
     document.querySelectorAll('.full-screen-overlay').forEach(el => el.classList.remove('active'));
+    bgmGarrafeira.pause(); bgmGarrafeira.currentTime = 0;
+    bgmAcademia.pause(); bgmAcademia.currentTime = 0;
     startTimer();
 }
 
@@ -378,6 +418,8 @@ window.flipMobileWineCard = function(card) {
 }
 
 window.openGarrafeira = function() {
+    bgmGarrafeira.play().catch(e=>console.log("Audio play impedido:", e));
+    
     const container = document.getElementById('mobile-wines-container');
     container.innerHTML = ''; 
 
@@ -442,6 +484,7 @@ function clearMobileIntervals() {
 }
 
 window.openAcademia = function() {
+    bgmAcademia.play().catch(e=>console.log("Audio play impedido:", e));
     resetMobileVindima();
     document.getElementById('screen-academia').classList.add('active');
 }
@@ -546,9 +589,13 @@ window.stopMobileEstagio = function() {
         document.getElementById('m-btn-next-4').style.display = 'block';
     } else {
         if(navigator.vibrate) navigator.vibrate(200);
-        alert('Falhou a zona dourada. Tente novamente!');
-        startMobileEstagio();
+        document.getElementById('m-game-over').classList.add('active');
     }
+}
+
+window.hideGameOverAndReset = function() {
+    document.getElementById('m-game-over').classList.remove('active');
+    resetMobileVindima();
 }
 
 window.resetMobileVindima = function() {
